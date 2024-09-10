@@ -53,7 +53,6 @@ Shape Name    Name    std::string
 Initial Position    (X,Y)    float, float
 Initial Speed       (SX, SY) float, float
 RGB Color           (R,G,B)  int, int, int
-Size                (W, H)   float, float
 Radius              (R)      float
 
 -----------------------------------------------------------------------------------
