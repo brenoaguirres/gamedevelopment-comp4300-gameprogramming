@@ -1,0 +1,15 @@
+﻿  lessons_headers.cpp
+C:\Users\khsfg\Documents\GitHub\gamedevelopment-comp4300-gameprogramming\Lessons 1-5 Code\code_lessons2_5\code_lessons2_5\lessons_headers.h(4,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'lessons_headers.cpp')
+  
+C:\Users\khsfg\Documents\GitHub\gamedevelopment-comp4300-gameprogramming\Lessons 1-5 Code\code_lessons2_5\code_lessons2_5\lessons_headers.h(5,9): error C2008: '.': inesperado na definição de macro
+  (compilando o arquivo fonte 'lessons_headers.cpp')
+  
+  main.cpp
+C:\Users\khsfg\Documents\GitHub\gamedevelopment-comp4300-gameprogramming\Lessons 1-5 Code\code_lessons2_5\code_lessons2_5\lessons_headers.h(4,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'main.cpp')
+  
+C:\Users\khsfg\Documents\GitHub\gamedevelopment-comp4300-gameprogramming\Lessons 1-5 Code\code_lessons2_5\code_lessons2_5\lessons_headers.h(5,9): error C2008: '.': inesperado na definição de macro
+  (compilando o arquivo fonte 'main.cpp')
+  
+  Gerando Código...
