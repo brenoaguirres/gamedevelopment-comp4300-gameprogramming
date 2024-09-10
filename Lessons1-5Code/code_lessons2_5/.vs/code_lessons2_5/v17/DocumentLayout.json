@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson2.2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lesson2.2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lesson3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,16 +15,12 @@
       "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lesson2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lessons_headers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lessons_headers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lessons_headers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lessons_headers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson2.2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lesson2.2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lessons_headers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|solutionrelative:code_lessons2_5\\lessons_headers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{261055FF-96FB-4FE3-A8C2-72B9C2D3BCBC}|code_lessons2_5\\code_lessons2_5.vcxproj|C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -51,7 +51,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "lessons_headers.h",
               "DocumentMoniker": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lessons_headers.h",
               "RelativeDocumentMoniker": "code_lessons2_5\\lessons_headers.h",
@@ -64,7 +64,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "lesson2.2.cpp",
               "DocumentMoniker": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson2.2.cpp",
               "RelativeDocumentMoniker": "code_lessons2_5\\lesson2.2.cpp",
@@ -77,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "lesson2.cpp",
               "DocumentMoniker": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson2.cpp",
               "RelativeDocumentMoniker": "code_lessons2_5\\lesson2.cpp",
@@ -90,13 +90,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "lesson3.cpp",
               "DocumentMoniker": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson3.cpp",
               "RelativeDocumentMoniker": "code_lessons2_5\\lesson3.cpp",
               "ToolTip": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson3.cpp",
               "RelativeToolTip": "code_lessons2_5\\lesson3.cpp",
-              "ViewState": "AQIAAGwAAAAAAAAAAAAAAIEAAAAAAAAA",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAAABMAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-10T14:52:53.518Z",
               "EditorCaption": ""
@@ -109,7 +109,7 @@
               "RelativeDocumentMoniker": "code_lessons2_5\\lesson4.cpp",
               "ToolTip": "C:\\Users\\breno.freitas\\Documents\\GitHub\\gamedevelopment-comp4300-gameprogramming\\Lessons1-5Code\\code_lessons2_5\\code_lessons2_5\\lesson4.cpp",
               "RelativeToolTip": "code_lessons2_5\\lesson4.cpp",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAYwHEAAAANAAAA",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAYwHEAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-10T14:46:28.48Z",
               "EditorCaption": ""

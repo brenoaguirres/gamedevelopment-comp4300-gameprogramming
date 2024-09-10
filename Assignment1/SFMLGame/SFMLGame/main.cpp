@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <fstream>
 
 #define FILEPATH "bin/config.txt"
@@ -46,11 +47,11 @@ public:
 
 		addRectangle(*rectangle);
 	}
-	const std::vector<sf::CircleShape> getCircleList() const
+	std::vector<sf::CircleShape> getCircleList() const
 	{
 		return *m_circles;
 	}
-	const std::vector<sf::RectangleShape> getRectList() const
+	std::vector<sf::RectangleShape> getRectList() const
 	{
 		return *m_rectangles;
 	}
@@ -58,34 +59,82 @@ public:
 #pragma endregion
 
 #pragma region METHODS
-void loadFromFile(std::string path)
+void loadFromFile(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Shapes> shapes)
 {
-	std::ifstream fin(path);
-
-	while (true) //fix
+	std::ifstream file(path);
+	if (!file)
 	{
-
+		std::cerr << "Unable to open file at configured path." << std::endl;
+		std::exit(-1);
 	}
+
+	std::string line;
+	while (std::getline(file, line))
+	{
+		std::istringstream lineStream(line);
+		std::string token;
+		std::vector<std::string> tokens;
+
+		while (lineStream >> token)
+		{
+			tokens.push_back(token);
+		}
+
+		if (token == "Window")
+		{
+			wWidth = tokens[1];
+			wHeight = tokens[2];
+		}
+		else if (token == "Font")
+		{
+			// TODO
+		}
+		else if (token == "Circle")
+		{
+			float pos_x, pos_y, vel_x, vel_y, radius;
+			int r, g, b;
+
+			fin >> pos_x >> pos_y >> vel_x >> vel_y >> r >> g >> b >> radius;
+
+			shapes->createCircle(pos_x, pos_y, vel_x, vel_y, r, g, b, radius);
+		}
+		else if (token == "Rectangle")
+		{
+			float pos_x, pos_y, vel_x, vel_y, width, height;
+			int r, g, b;
+
+			fin >> pos_x >> pos_y >> vel_x >> vel_y >> r >> g >> b >> width >> height;
+
+			shapes->createRectangle(pos_x, pos_y, vel_x, vel_y, r, g, b, width, height);
+		}
+		else {
+			std::cout << "Unidentified line token when reading config file." << std::endl;
+			std::cout << line << std::endl;
+			std::cout << first_key << std::endl;
+			continue;
+		}
+	}
+
+	file.close();
 }
 #pragma endregion
 
 #pragma region MAIN
 int main(int argc, char* argv[])
 {
-	// Load Data
-	//loadFromFile(FILEPATH);
-
+	
 	std::shared_ptr<Shapes> shapeList = std::make_shared<Shapes>();
 	shapeList->createCircle(10, 10, 10, 10, 255, 255, 255, 25);
 	shapeList->createCircle(50, 50, 10, 10, 255, 255, 255, 25);
 	shapeList->createCircle(100, 100, 10, 10, 255, 255, 255, 25);
 
-	// Window and FPS
-	const int wWidth = 1280;
-	const int wHeight = 720;
+	int wWidth = 1280;
+	int wHeight = 720;
 
-	// Shapes initialization
+	// Load Data
+	loadFromFile(FILEPATH, wWidth, wHeight, shapeList);
 
+	// Window initialization
 	sf::RenderWindow window(sf::VideoMode(wWidth, wHeight), "SFML Assignment 1");
 	window.setFramerateLimit(60);
 

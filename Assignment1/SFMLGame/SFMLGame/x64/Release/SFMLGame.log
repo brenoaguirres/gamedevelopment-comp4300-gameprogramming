@@ -1,7 +1,7 @@
 ﻿  main.cpp
   Gerando código
-  48 of 336 functions (14.3%) were compiled, the rest were copied from previous compilation.
-    35 functions were new in current compilation
-    18 functions had inline decision re-evaluated but remain unchanged
+  14 of 421 functions ( 3.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finalizada a geração de código
   SFMLGame.vcxproj -> C:\Users\breno.freitas\Documents\GitHub\gamedevelopment-comp4300-gameprogramming\Assignment1\SFMLGame\x64\Release\SFMLGame.exe
