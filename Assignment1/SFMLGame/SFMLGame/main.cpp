@@ -58,6 +58,47 @@ public:
 	{
 		return *m_rectangles;
 	}
+	void collision(int scr_w, int scr_h) const
+	{
+		for (size_t i = 0; i < m_circles->size(); i++)
+		{
+			auto& circle = (*m_circles)[i];
+			auto& velocity = (*m_velocityCircles)[i];
+			if (circle.getLocalBounds().left <= 0 || (circle.getLocalBounds().left + circle.getLocalBounds().width) >= scr_w)
+				velocity.x *= -1;
+			if (circle.getLocalBounds().top <= 0 || (circle.getLocalBounds().top + circle.getLocalBounds().height) >= scr_h)
+				velocity.y *= -1;
+				
+		}
+		for (size_t i = 0; i < m_rectangles->size(); i++)
+		{
+			auto& rect = (*m_rectangles)[i];
+			auto& velocity = (*m_velocityRectangles)[i];
+			if (rect.getLocalBounds().left <= 0 || (rect.getLocalBounds().left + rect.getLocalBounds().width) >= scr_w)
+				velocity.x *= -1;
+		/*
+			if (rect.getLocalBounds().top <= 0 || (rect.getLocalBounds().top + rect.getLocalBounds().height) >= scr_h)
+				velocity.y *= -1;
+		*/
+		}
+	}
+	void update() const
+	{
+		for (size_t i = 0; i < m_circles->size(); ++i)
+		{
+			auto& circle = (*m_circles)[i];
+			auto& velocity = (*m_velocityCircles)[i];
+			sf::Vector2f newPosition = circle.getPosition() + velocity;
+			circle.setPosition(newPosition);
+		}
+		for (size_t i = 0; i < m_rectangles->size(); ++i)
+		{
+			auto& rect = (*m_rectangles)[i];
+			auto& velocity = (*m_velocityRectangles)[i];
+			sf::Vector2f newPosition = rect.getPosition() + velocity;
+			rect.setPosition(newPosition);
+		}
+	}
 };
 #pragma endregion
 
@@ -113,7 +154,7 @@ bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Sha
 		}
 		else
 		{
-			std::cout << "Unidentified token. Could not load properly." << std::endl;
+			std::cout << "Unidentified token within config file: "  ". Could not load properly." << std::endl;
 		}
 	}
 
@@ -132,7 +173,8 @@ int main(int argc, char* argv[])
 	int wHeight = 720;
 
 	// Load Data
-	loadConfig(FILEPATH, wWidth, wHeight, shapeList);
+	if (!loadConfig(FILEPATH, wWidth, wHeight, shapeList))
+		return -1;
 
 	// Window initialization
 	sf::RenderWindow window(sf::VideoMode(wWidth, wHeight), "SFML Assignment 1");
@@ -150,6 +192,11 @@ int main(int argc, char* argv[])
 				window.close();
 			}
 		}
+
+		// Collision
+		shapeList->collision(wWidth, wHeight);
+		// Update
+		shapeList->update();
 
 		// Rendering
 		window.clear();
