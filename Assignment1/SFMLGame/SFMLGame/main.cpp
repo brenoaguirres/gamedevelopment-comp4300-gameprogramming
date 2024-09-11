@@ -11,6 +11,10 @@ class Shapes
 {
 	std::shared_ptr<std::vector<sf::CircleShape>> m_circles = std::make_shared<std::vector<sf::CircleShape>>();
 	std::shared_ptr<std::vector<sf::RectangleShape>> m_rectangles = std::make_shared<std::vector<sf::RectangleShape>>();
+	std::shared_ptr<std::vector<std::string>> m_labelsCircles = std::make_shared<std::vector<std::string>>();
+	std::shared_ptr<std::vector<std::string>> m_labelsRectangles = std::make_shared<std::vector<std::string>>();
+	std::shared_ptr<std::vector<sf::Vector2f>> m_velocityCircles = std::make_shared<std::vector<sf::Vector2f>>();
+	std::shared_ptr<std::vector<sf::Vector2f>> m_velocityRectangles = std::make_shared<std::vector<sf::Vector2f>>();
 public:
 	Shapes(){}
 	~Shapes(){}
@@ -18,34 +22,33 @@ public:
 	{
 		m_circles->push_back(circle);
 	}
-
 	void addRectangle(sf::RectangleShape& rectangle) const
 	{
 		m_rectangles->push_back(rectangle);
 	}
-	void createCircle(sf::CircleShape& circle) const
+	void createCircle(std::string label, float pos_x, float pos_y, float vel_x, float vel_y, int r, int g, int b, float radius) const
 	{
-		addCircle(circle);
-	}
-	void createRectangle(sf::RectangleShape& rectangle) const
-	{
-		addRectangle(rectangle);
-	}
-	void createCircle(float pos_x, float pos_y, float vel_x, float vel_y, int r, int g, int b, float radius) const
-	{
+		// storing circle shape
 		auto circle = std::make_shared<sf::CircleShape>(radius);
 		circle->setPosition(pos_x, pos_y);
 		circle->setFillColor(sf::Color(r, g, b));
-
 		addCircle(*circle);
+
+		// storing circle vel and label
+		m_labelsCircles->push_back(label);
+		m_velocityCircles->push_back(sf::Vector2f(vel_x, vel_y));
 	}
-	void createRectangle(float pos_x, float pos_y, float vel_x, float vel_y, int r, int g, int b, float width, float height) const
+	void createRectangle(std::string label, float pos_x, float pos_y, float vel_x, float vel_y, int r, int g, int b, float width, float height) const
 	{
+		// storing rect shape
 		auto rectangle = std::make_shared<sf::RectangleShape>(sf::Vector2f(width, height));
 		rectangle->setPosition(pos_x, pos_y);
 		rectangle->setFillColor(sf::Color(r, g, b));
-
 		addRectangle(*rectangle);
+
+		// storing rect vel and label
+		m_labelsRectangles->push_back(label);
+		m_velocityRectangles->push_back(sf::Vector2f(vel_x, vel_y));
 	}
 	std::vector<sf::CircleShape> getCircleList() const
 	{
@@ -59,63 +62,63 @@ public:
 #pragma endregion
 
 #pragma region METHODS
-void loadFromFile(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Shapes> shapes)
+bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Shapes> shapes)
 {
 	std::ifstream file(path);
-	if (!file)
+	
+	if (!file.is_open())
 	{
-		std::cerr << "Unable to open file at configured path." << std::endl;
-		std::exit(-1);
+		std::cerr << "File not found at " + path + " specified path." << std::endl;
+		return false;
 	}
 
-	std::string line;
-	while (std::getline(file, line))
+	std::string param;
+
+	while (!file.eof())
 	{
-		std::istringstream lineStream(line);
-		std::string token;
-		std::vector<std::string> tokens;
-
-		while (lineStream >> token)
+		file >> param;
+		if (param == "Window")
 		{
-			tokens.push_back(token);
+			int w, h;
+			file >> w >> h;
+			wWidth = w;
+			wHeight = h;
+			
+			std::cout << "Window loaded" << std::endl;
 		}
-
-		if (token == "Window")
+		else if (param == "Font")
 		{
-			wWidth = tokens[1];
-			wHeight = tokens[2];
+			std::string path;
+			int size, r, g, b;
+			file >> path >> size >> r >> g >> b;
+			std::cout << "Font loaded" << std::endl;
 		}
-		else if (token == "Font")
+		else if (param == "Circle")
 		{
-			// TODO
-		}
-		else if (token == "Circle")
-		{
-			float pos_x, pos_y, vel_x, vel_y, radius;
+			std::string label;
+			float px, py, vx, vy, radius;
 			int r, g, b;
-
-			fin >> pos_x >> pos_y >> vel_x >> vel_y >> r >> g >> b >> radius;
-
-			shapes->createCircle(pos_x, pos_y, vel_x, vel_y, r, g, b, radius);
+			file >> label >> px >> py >> vx >> vy >> r >> g >> b >> radius;
+			shapes->createCircle(label, px, py, vx, vy, r, g, b, radius);
+			std::cout << "Circle loaded" << std::endl;
 		}
-		else if (token == "Rectangle")
+		else if (param == "Rectangle")
 		{
-			float pos_x, pos_y, vel_x, vel_y, width, height;
+			std::string label;
+			float px, py, vx, vy, width, height;
 			int r, g, b;
-
-			fin >> pos_x >> pos_y >> vel_x >> vel_y >> r >> g >> b >> width >> height;
-
-			shapes->createRectangle(pos_x, pos_y, vel_x, vel_y, r, g, b, width, height);
+			file >> label >> px >> py >> vx >> vy >> r >> g >> b >> width >> height;
+			shapes->createRectangle(label, px, py, vx, vy, r, g, b, width, height);
+			std::cout << "Rectangle loaded" << std::endl;
 		}
-		else {
-			std::cout << "Unidentified line token when reading config file." << std::endl;
-			std::cout << line << std::endl;
-			std::cout << first_key << std::endl;
-			continue;
+		else
+		{
+			std::cout << "Unidentified token. Could not load properly." << std::endl;
 		}
 	}
 
 	file.close();
+	return true;
 }
 #pragma endregion
 
@@ -124,15 +127,12 @@ int main(int argc, char* argv[])
 {
 	
 	std::shared_ptr<Shapes> shapeList = std::make_shared<Shapes>();
-	shapeList->createCircle(10, 10, 10, 10, 255, 255, 255, 25);
-	shapeList->createCircle(50, 50, 10, 10, 255, 255, 255, 25);
-	shapeList->createCircle(100, 100, 10, 10, 255, 255, 255, 25);
 
 	int wWidth = 1280;
 	int wHeight = 720;
 
 	// Load Data
-	loadFromFile(FILEPATH, wWidth, wHeight, shapeList);
+	loadConfig(FILEPATH, wWidth, wHeight, shapeList);
 
 	// Window initialization
 	sf::RenderWindow window(sf::VideoMode(wWidth, wHeight), "SFML Assignment 1");
