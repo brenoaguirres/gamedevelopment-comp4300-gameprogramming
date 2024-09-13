@@ -64,9 +64,9 @@ public:
 		{
 			auto& circle = (*m_circles)[i];
 			auto& velocity = (*m_velocityCircles)[i];
-			if (circle.getLocalBounds().left <= 0 || (circle.getLocalBounds().left + circle.getLocalBounds().width) >= scr_w)
+			if (circle.getGlobalBounds().left <= 0 || (circle.getGlobalBounds().left + circle.getLocalBounds().width) >= scr_w)
 				velocity.x *= -1;
-			if (circle.getLocalBounds().top <= 0 || (circle.getLocalBounds().top + circle.getLocalBounds().height) >= scr_h)
+			if (circle.getGlobalBounds().top <= 0 || (circle.getGlobalBounds().top + circle.getLocalBounds().height) >= scr_h)
 				velocity.y *= -1;
 				
 		}
@@ -74,12 +74,10 @@ public:
 		{
 			auto& rect = (*m_rectangles)[i];
 			auto& velocity = (*m_velocityRectangles)[i];
-			if (rect.getLocalBounds().left <= 0 || (rect.getLocalBounds().left + rect.getLocalBounds().width) >= scr_w)
+			if (rect.getGlobalBounds().left <= 0 || (rect.getGlobalBounds().left + rect.getLocalBounds().width) >= scr_w)
 				velocity.x *= -1;
-		/*
-			if (rect.getLocalBounds().top <= 0 || (rect.getLocalBounds().top + rect.getLocalBounds().height) >= scr_h)
+			if (rect.getGlobalBounds().top <= 0 || (rect.getGlobalBounds().top + rect.getLocalBounds().height) >= scr_h)
 				velocity.y *= -1;
-		*/
 		}
 	}
 	void update() const
