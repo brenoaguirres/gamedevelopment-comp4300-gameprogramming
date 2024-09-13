@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <memory>
-#include <sstream>
 #include <fstream>
 
 #define FILEPATH "bin/config.txt"
@@ -15,6 +14,8 @@ class Shapes
 	std::shared_ptr<std::vector<std::string>> m_labelsRectangles = std::make_shared<std::vector<std::string>>();
 	std::shared_ptr<std::vector<sf::Vector2f>> m_velocityCircles = std::make_shared<std::vector<sf::Vector2f>>();
 	std::shared_ptr<std::vector<sf::Vector2f>> m_velocityRectangles = std::make_shared<std::vector<sf::Vector2f>>();
+	std::shared_ptr<std::vector<sf::Text>> m_textCircles = std::make_shared<std::vector<sf::Text>>();
+	std::shared_ptr<std::vector<sf::Text>> m_textRectangles = std::make_shared<std::vector<sf::Text>>();
 public:
 	Shapes(){}
 	~Shapes(){}
@@ -38,6 +39,27 @@ public:
 		m_labelsCircles->push_back(label);
 		m_velocityCircles->push_back(sf::Vector2f(vel_x, vel_y));
 	}
+	void createLabels(sf::Font font, int size, sf::Color col)
+	{
+		for (size_t i = 0; i < m_circles->size(); ++i)
+		{
+			auto& circle = (*m_circles)[i];
+			auto& label = (*m_labelsCircles)[i];
+			sf::Text t(label, font, size);
+			t.setFillColor(col);
+			t.setPosition(circle.getPosition());
+			m_textCircles->push_back(t);
+		}
+		for (size_t i = 0; i < m_rectangles->size(); ++i)
+		{
+			auto& rect = (*m_rectangles)[i];
+			auto& label = (*m_labelsRectangles)[i];
+			sf::Text t(label, font, size);
+			t.setFillColor(col);
+			t.setPosition(rect.getPosition());
+			m_textRectangles->push_back(t);
+		}
+	}
 	void createRectangle(std::string label, float pos_x, float pos_y, float vel_x, float vel_y, int r, int g, int b, float width, float height) const
 	{
 		// storing rect shape
@@ -49,14 +71,6 @@ public:
 		// storing rect vel and label
 		m_labelsRectangles->push_back(label);
 		m_velocityRectangles->push_back(sf::Vector2f(vel_x, vel_y));
-	}
-	std::vector<sf::CircleShape> getCircleList() const
-	{
-		return *m_circles;
-	}
-	std::vector<sf::RectangleShape> getRectList() const
-	{
-		return *m_rectangles;
 	}
 	void collision(int scr_w, int scr_h) const
 	{
@@ -80,7 +94,23 @@ public:
 				velocity.y *= -1;
 		}
 	}
-	void update() const
+	std::vector<sf::CircleShape>& getCircleList() const
+	{
+		return *m_circles;
+	}
+	std::vector<sf::RectangleShape>& getRectList() const
+	{
+		return *m_rectangles;
+	}
+	std::vector<sf::Text>& getCircleLabels() const
+	{
+		return *m_textCircles;
+	}
+	std::vector<sf::Text>& getRectangleLabels() const
+	{
+		return *m_textRectangles;
+	}
+	void update()
 	{
 		for (size_t i = 0; i < m_circles->size(); ++i)
 		{
@@ -96,12 +126,22 @@ public:
 			sf::Vector2f newPosition = rect.getPosition() + velocity;
 			rect.setPosition(newPosition);
 		}
+		for (size_t i = 0; i < m_textCircles->size(); i++)
+		{
+			auto& circle = (*m_circles)[i];
+			auto& label = (*m_textCircles)[i];
+			sf::Vector2f newPosition(
+				(circle.getPosition().x + (circle.getLocalBounds().width / 2) - (label.getLocalBounds().width / 2)),
+				(circle.getPosition().y + (circle.getLocalBounds().height / 2) - (label.getLocalBounds().height / 2))
+			);
+			label.setPosition(newPosition);
+		}
 	}
 };
 #pragma endregion
 
 #pragma region METHODS
-bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Shapes> shapes)
+bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Shapes> shapes, std::string &fPath, int &fSize, sf::Color &fColor)
 {
 	std::ifstream file(path);
 	
@@ -130,6 +170,10 @@ bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Sha
 			std::string path;
 			int size, r, g, b;
 			file >> path >> size >> r >> g >> b;
+			fPath = path;
+			fSize = size;
+			sf::Color col(r, g, b);
+			fColor = col;
 			std::cout << "Font loaded" << std::endl;
 		}
 		else if (param == "Circle")
@@ -165,14 +209,28 @@ bool loadConfig(std::string path, int& wWidth, int& wHeight, std::shared_ptr<Sha
 int main(int argc, char* argv[])
 {
 	
+	// Variables
 	std::shared_ptr<Shapes> shapeList = std::make_shared<Shapes>();
 
 	int wWidth = 1280;
 	int wHeight = 720;
 
+	sf::Font textFont;
+	int textSize;
+	std::string textPath;
+	sf::Color textColor;
+
 	// Load Data
-	if (!loadConfig(FILEPATH, wWidth, wHeight, shapeList))
+	if (!loadConfig(FILEPATH, wWidth, wHeight, shapeList, textPath, textSize, textColor))
 		return -1;
+
+	// Load Font
+	if (!textFont.loadFromFile(textPath))
+	{
+		std::cerr << "Font file not found at: " << textPath << std::endl;
+		return -1;
+	}
+	shapeList->createLabels(textFont, textSize, textColor);
 
 	// Window initialization
 	sf::RenderWindow window(sf::VideoMode(wWidth, wHeight), "SFML Assignment 1");
@@ -205,6 +263,14 @@ int main(int argc, char* argv[])
 		for (auto shape : shapeList->getRectList())
 		{
 			window.draw(shape);
+		}
+		for (auto label : shapeList->getCircleLabels())
+		{
+			window.draw(label);
+		}
+		for (auto label : shapeList->getRectangleLabels())
+		{
+			window.draw(label);
 		}
 		window.display();
 	}
